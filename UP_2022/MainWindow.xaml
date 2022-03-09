@@ -1,0 +1,22 @@
+﻿<Window x:Class="UP_2022.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UP_2022"
+        mc:Ignorable="d"
+        Title="Черновик" Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="450" MaxWidth="800" Icon="materials\Черновик.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Center" Margin="0 0 20 0">
+                <TextBlock  FontSize="30">Черновик</TextBlock>
+            </StackPanel>
+            <Image Source="materials\Черновик.png" Width="90" Height="90"/>
+        </StackPanel>
+        <Frame x:Name="Fmain" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>
