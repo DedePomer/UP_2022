@@ -1,0 +1,15 @@
+﻿<Window x:Class="UP_2022.FolderWindows.ChangeMinWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UP_2022.FolderWindows"
+        mc:Ignorable="d"
+        Title="ChangeMinWindow" Height="200" Width="200"  MinHeight="200" MinWidth="200" MaxHeight="200" MaxWidth="200">
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox Width="50"></TextBox>
+            <Button Margin="0 10 0 0" Click="Button_Click">Изменить</Button>
+        </StackPanel>
+    </Grid>
+</Window>

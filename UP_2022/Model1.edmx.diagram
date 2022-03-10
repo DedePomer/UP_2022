@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="Model.ProductType" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Shop" Width="1.5" PointX="5.25" PointY="19.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Supplier" Width="1.5" PointX="6" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_Agent_AgentType" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_AgentPriorityHistory_Agent" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_ProductSale_Agent" ManuallyRouted="false" />

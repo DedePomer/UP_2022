@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace UP_2022
 {
@@ -73,7 +74,24 @@ namespace UP_2022
         {
             get
             {
-                return "Остаток: " + CountInStock + " " + Unit;
+                return "Остаток: " + CountInStock;
+            }
+        }
+
+        public SolidColorBrush ColorCell
+        {
+            get
+            {
+                SolidColorBrush Brush = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+                if (CountInStock < MinCount)
+                {
+                     Brush = new SolidColorBrush(Color.FromRgb(241, 146, 146));
+                }
+                else if (MinCount*3 == CountInStock)
+                {
+                    Brush = new SolidColorBrush(Color.FromRgb(255, 186, 1));                   
+                }
+                return Brush;
             }
         }
 

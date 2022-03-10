@@ -15,5 +15,18 @@
                 <Setter Property="Background" Value="#FEA9AB"/>
             </Style.Setters>
         </Style>
+
+
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Background" Value="#EAB14D"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="Segoe Print"/>
+            </Style.Setters>
+        </Style>
     </Application.Resources>
 </Application>

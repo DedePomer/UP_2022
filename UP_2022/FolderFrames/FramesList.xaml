@@ -3,29 +3,36 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:UP_2022.FolderFrames"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="FramesList" >
-
-    <Grid>
+       Title="FramesList" >
+     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Margin="10 0 10 0" Style="{StaticResource StackPanelPink}" >
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <TextBox x:Name="TBOXSearch" Width="350" BorderThickness="3"/>
-                    <ComboBox Name="CBFilt" Margin="10 0 0 0" Width="190" BorderThickness="3" SelectionChanged="CBFilt_SelectionChanged">
+                <StackPanel Orientation="Horizontal" >
+                    <TextBox x:Name="TBOXSearch" Width="191" BorderThickness="2" TextChanged="TBOXSearch_TextChanged"/>
+                    <ComboBox Name="CBSort"  Width="190" BorderThickness="2" SelectionChanged="CBSort_SelectionChanged">
+                        <ComboBoxItem Content="по наименованию"/>
+                        <ComboBoxItem Content="по остатку на складе"/>
+                        <ComboBoxItem Content="по стоимости"/>
+                    </ComboBox>
+ 
+                    <Button x:Name="BUp" Content="↑" Width="20" BorderThickness="2" Click="BUp_Click"/>
+                    <Button x:Name="BDown" Content="↓" Width="20" BorderThickness="2" Click="BDown_Click"/>
+                    
+                    <ComboBox Name="CBFilt" Width="190" BorderThickness="2 " SelectionChanged="CBFilt_SelectionChanged">
+                        <ComboBoxItem Content="Все типы"/>
                         <ComboBoxItem Content="Гранулы"/>
                         <ComboBoxItem Content="Рулон"/>
                         <ComboBoxItem Content="Нарезка"/>
                         <ComboBoxItem Content="Пресс"/>
                     </ComboBox>
-                    <ComboBox Name="CBSort" Margin="10 0 0 0" Width="190" BorderThickness="3" SelectionChanged="CBSort_SelectionChanged">
-                        <ComboBoxItem Content="по наименованию"/>
-                        <ComboBoxItem Content="по остатку на складе"/>
-                        <ComboBoxItem Content="по стоимости"/>
-                    </ComboBox>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock x:Name="TBLOCKConst" FontWeight="Bold"></TextBlock>
+                        <TextBlock x:Name="TBLOCKChange" FontWeight="Bold"/>
+                    </StackPanel>
+                    
                 </StackPanel>
-                <ListView x:Name="LVProductList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="250" Opacity="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#FEA9AB">
+                <ListView x:Name="LVProductList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="250" Opacity="1" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Multiple" SelectionChanged="LVProductList_SelectionChanged">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -33,11 +40,11 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="3">
+                            <Border BorderBrush="Black" BorderThickness="3" Background="{Binding ColorCell}">
                                 <StackPanel Orientation="Horizontal" Width="750" HorizontalAlignment="Center">
                                     <Image Source="{Binding PhotoPath}" Width="150" Height="90"/>
 
-                                    <StackPanel Orientation="Vertical" Margin="50 5 0 5" HorizontalAlignment="Left" Width="400">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="400">
                                         <TextBlock Text="{Binding TitleBox}" FontSize="18"></TextBlock>
                                         <TextBlock Text="{Binding MinCount, StringFormat={}Минимальное количество {0} шт}"></TextBlock>
                                         <StackPanel Orientation="Horizontal">
@@ -53,7 +60,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
-            
+            <Button x:Name="BchangeMin" Visibility="Collapsed" Click="BchangeMin_Click">Изменение минимального колличества</Button>
         </StackPanel>
     </Grid>
 </Page>
