@@ -35,6 +35,7 @@ namespace UP_2022.FolderFrames
             CBFilt.SelectedIndex = 0;
             CBSort.SelectedIndex = 0;
             TBLOCKConst.Text = StartFilter.Count + " из ";
+            FolderClasses.ChangePropertyClass.listview = LVProductList;
         }
 
         private void CBFilt_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -157,9 +158,27 @@ namespace UP_2022.FolderFrames
         
         private void BchangeMin_Click(object sender, RoutedEventArgs e)
         {
+            List<Material> OurList = new List<Material>();
+            foreach (Material item in LVProductList.SelectedItems)
+            {
+                OurList.Add(item);
+            }
+            FolderWindows.ChangeMinWindow changeMinWindow = new FolderWindows.ChangeMinWindow(OurList);
+            changeMinWindow.Show();            
+        }
 
-            FolderWindows.ChangeMinWindow changeMinWindow = new FolderWindows.ChangeMinWindow();
-            changeMinWindow.Show();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button OurB = (Button)sender;
+            int ind = Convert.ToInt32(OurB.Uid);
+            FolderWindows.UpdateAddWindow upada = new FolderWindows.UpdateAddWindow(ind);
+            upada.Show();
+        }
+
+        private void BAdd_Click(object sender, RoutedEventArgs e)
+        {
+            FolderWindows.UpdateAddWindow upada = new FolderWindows.UpdateAddWindow();
+            upada.Show();
         }
     }
 }

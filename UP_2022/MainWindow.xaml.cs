@@ -26,6 +26,8 @@ namespace UP_2022
             FolderClasses.FrameUp.frame = Fmain;
             FolderClasses.BD.Data = new Entities3();
             Fmain.Navigate(new FolderFrames.FramesList());
+/*            FolderWindows.UpdateAddWindow upada = new FolderWindows.UpdateAddWindow();
+            upada.Show();*/
         }
     }
 }

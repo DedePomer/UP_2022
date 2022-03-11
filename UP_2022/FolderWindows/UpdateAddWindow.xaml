@@ -1,0 +1,59 @@
+﻿<Window x:Class="UP_2022.FolderWindows.UpdateAddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UP_2022.FolderWindows"
+        mc:Ignorable="d"
+        Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="450" MaxWidth="800" Icon="..\materials\Черновик.ico">
+    <Grid>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center" Margin="0 0 10 0">
+                <Border BorderThickness="2" BorderBrush="Black">
+                    <Image x:Name="IPhoto" Source="..\materials\picture.png" Width="200" Height="200"/>
+                </Border>
+            </StackPanel>
+
+
+            <StackPanel>
+                <GroupBox Header="Название">
+                    <TextBox x:Name="TBOXTitle"/>
+                </GroupBox>
+
+                <GroupBox Header="Тип Материала">
+                    <ComboBox Name="CBTypeMat"></ComboBox>
+                </GroupBox>
+
+                <GroupBox Header="Количество на складе">
+                    <TextBox x:Name="TBOXCountInStock"/>
+                </GroupBox>
+
+                <GroupBox Header="Е.И.">
+                    <TextBox x:Name="TBOXUnit"/>
+                </GroupBox>
+
+                <GroupBox Header="Количество в упаковке">
+                    <TextBox x:Name="TBOXCountInPack"/>
+                </GroupBox>
+
+                <GroupBox Header="Минимальное количество">
+                    <TextBox x:Name="TBOXMinCount"/>
+                </GroupBox>
+
+                <GroupBox Header="Цена за штуку">
+                    <TextBox x:Name="TBOXCostPerUnit"/>
+                </GroupBox>
+            </StackPanel>
+
+            <StackPanel>
+                <GroupBox Header="Описание">
+                    <TextBox x:Name="TBOXDescription" AcceptsReturn="True" Height="300" Width="150"/>
+                </GroupBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel>
+            <Button x:Name="BAddOrUp" Click="BAddOrUp_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
