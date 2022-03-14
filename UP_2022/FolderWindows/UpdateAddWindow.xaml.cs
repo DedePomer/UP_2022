@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace UP_2022.FolderWindows
 {
-    /// <summary>
-    /// Логика взаимодействия для UpdateAddWindow.xaml
-    /// </summary>
     public partial class UpdateAddWindow : Window
     {
         int _ind =-1;
@@ -63,41 +60,76 @@ namespace UP_2022.FolderWindows
             TBOXCountInPack.Text = NeededMaterials[0].CountInPack + "";
             CBTypeMat.SelectedIndex = NeededMaterials[0].MaterialTypeID-1;
             TBOXCostPerUnit.Text = Convert.ToDouble(NeededMaterials[0].Cost)/ Convert.ToDouble(NeededMaterials[0].CountInStock)+ "";
-            IPhoto.Source = new BitmapImage(new Uri("UP_2022\\" + NeededMaterials[0].Image, UriKind.RelativeOrAbsolute));/*\UP_2022\materials\material_9.jpeg*/
+            /*IPhoto.Source = new BitmapImage(new Uri("UP_2022\\" + NeededMaterials[0].Image, UriKind.RelativeOrAbsolute));*//*\UP_2022\materials\material_9.jpeg*/
+
+
         }
 
-        public void Add()
+
+        public bool Add(int ind)
         {
             try
             {
-                Material TemporaryList = new Material()
+                if (ind < 0)
                 {
-                    Title = TBOXTitle.Text,
-                    Unit = TBOXUnit.Text,
-                    MinCount = Convert.ToDouble(TBOXMinCount.Text),
-                    Description = TBOXDescription.Text,
-                    CountInStock = Convert.ToDouble(TBOXCountInStock.Text),
-                    CountInPack = Convert.ToInt32(TBOXCountInPack.Text),
-                    MaterialTypeID = CBTypeMat.SelectedIndex + 1,
-                    Image = null,
-                    Cost = Convert.ToDecimal(TBOXCostPerUnit.Text) * Convert.ToDecimal(TBOXCountInStock.Text)
-                };
-                FolderClasses.BD.Data.Material.Add(TemporaryList);
-                FolderClasses.BD.Data.SaveChanges();
-                MessageBox.Show("Данные сохранены в БД", "Сообщение", MessageBoxButton.OK);
+                    if (Convert.ToDecimal(TBOXCostPerUnit.Text) >= 0 || Convert.ToDouble(TBOXMinCount.Text) >= 0)
+                    {
+                        return false;
+
+                    }
+                    Material TemporaryList = new Material()
+                    {
+                        Title = TBOXTitle.Text,
+                        Unit = TBOXUnit.Text,
+                        MinCount = Convert.ToDouble(TBOXMinCount.Text),
+                        Description = TBOXDescription.Text,
+                        CountInStock = Convert.ToDouble(TBOXCountInStock.Text),
+                        CountInPack = Convert.ToInt32(TBOXCountInPack.Text),
+                        MaterialTypeID = CBTypeMat.SelectedIndex + 1,
+                        Image = null,
+                        Cost = Convert.ToDecimal(TBOXCostPerUnit.Text) * Convert.ToDecimal(TBOXCountInStock.Text)
+                    };
+                    FolderClasses.BD.Data.Material.Add(TemporaryList);
+                }
+
+                else
+                {
+                    materials[ind].Title = TBOXTitle.Text;
+                    materials[ind].Unit = TBOXUnit.Text;
+                    materials[ind].MinCount = Convert.ToDouble(TBOXMinCount.Text);
+                    materials[ind].Description = TBOXDescription.Text;
+                    materials[ind].CountInStock = Convert.ToDouble(TBOXCountInStock.Text);
+                    materials[ind].CountInPack = Convert.ToInt32(TBOXCountInPack.Text);
+                    materials[ind].MaterialTypeID = CBTypeMat.SelectedIndex + 1;
+                    if (materials[ind].Image == null)
+                    {
+                        materials[ind].Image = _PhotoPath;
+                    }                   
+                    materials[ind].Cost = Convert.ToDecimal(TBOXCostPerUnit.Text) * Convert.ToDecimal(TBOXCountInStock.Text);
+                }
+                    FolderClasses.BD.Data.SaveChanges();
+                    return true;               
             }
             catch (OptimisticConcurrencyException)
             {
-                MessageBox.Show("Данные не сохранены в БД", "Ошибка", MessageBoxButton.OK);
-            }
-            
+                return false;
+            }            
         }
 
 
 
         private void BAddOrUp_Click(object sender, RoutedEventArgs e)
         {
-            Add();
+            if (!Add(_ind))
+            {
+                MessageBox.Show("Данные не сохранены в БД", "Ошибка", MessageBoxButton.OK);
+            }
+            else 
+            {
+                MessageBox.Show("Данные сохранены в БД", "Сообщение", MessageBoxButton.OK);
+            }
+            FolderClasses.ChangePropertyClass.listview.Items.Refresh();
+            this.Close();
         }
 
         private void BChangePhoto_Click(object sender, RoutedEventArgs e)
@@ -113,7 +145,6 @@ namespace UP_2022.FolderWindows
             {
                 MessageBox.Show("Не возможно открыть диалоговое окно", "Ошибка", MessageBoxButton.OK);
             }
-
         }
     }
 }

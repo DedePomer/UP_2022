@@ -16,10 +16,6 @@ using System.Windows.Shapes;
 
 namespace UP_2022.FolderFrames
 {
-    /// <summary>
-    /// Логика взаимодействия для FramesList.xaml
-    /// </summary>
-    /// 
 
     public partial class FramesList : Page
     {
@@ -87,7 +83,11 @@ namespace UP_2022.FolderFrames
             else
             {
                 sort();
-            }           
+            }
+            if (FinalFilter.Count ==0)
+            {
+                MessageBox.Show("Элементов 0", "Сообщение", MessageBoxButton.OK);
+            }
             LVProductList.ItemsSource = FinalFilter;
         }
 

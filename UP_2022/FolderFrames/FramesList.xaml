@@ -69,8 +69,6 @@
                 <Button x:Name="BAdd"  Click="BAdd_Click">Добавить материал</Button>
                 <Button x:Name="BchangeMin" Margin="10 0 0 0" Visibility="Collapsed" Click="BchangeMin_Click">Изменение минимального колличества на...</Button>
             </StackPanel>
-            
-            
         </StackPanel>
     </Grid>
 </Page>
