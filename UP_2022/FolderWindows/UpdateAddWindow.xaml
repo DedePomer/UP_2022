@@ -11,8 +11,9 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel VerticalAlignment="Center" Margin="0 0 10 0">
                 <Border BorderThickness="2" BorderBrush="Black">
-                    <Image x:Name="IPhoto" Source="..\materials\picture.png" Width="200" Height="200"/>
+                    <Image x:Name="IPhoto" Source="..\materials\picture.png" Width="200" Height="200" />
                 </Border>
+                <Button Margin="0 3 0 0" Name="BChangePhoto" Click="BChangePhoto_Click">Изменить изображение</Button>
             </StackPanel>
 
 
@@ -22,7 +23,7 @@
                 </GroupBox>
 
                 <GroupBox Header="Тип Материала">
-                    <ComboBox Name="CBTypeMat"></ComboBox>
+                    <ComboBox Name="CBTypeMat"  IsEditable="True"  ></ComboBox>
                 </GroupBox>
 
                 <GroupBox Header="Количество на складе">

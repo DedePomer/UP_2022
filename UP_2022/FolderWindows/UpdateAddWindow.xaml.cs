@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,7 @@ namespace UP_2022.FolderWindows
         int _ind =-1;
         List<MaterialType> materialTypesList = FolderClasses.BD.Data.MaterialType.ToList();
         List<Material> materials = FolderClasses.BD.Data.Material.ToList();
+        string _PhotoPath = null;
 
         public void AlwaysWork() // метод, который будет выполнятся в обоих конструкторах
         {            
@@ -60,30 +63,57 @@ namespace UP_2022.FolderWindows
             TBOXCountInPack.Text = NeededMaterials[0].CountInPack + "";
             CBTypeMat.SelectedIndex = NeededMaterials[0].MaterialTypeID-1;
             TBOXCostPerUnit.Text = Convert.ToDouble(NeededMaterials[0].Cost)/ Convert.ToDouble(NeededMaterials[0].CountInStock)+ "";
-
-            /*IPhoto.Source = new BitmapImage(new Uri("..\\" + NeededMaterials[0].Image + "", UriKind.RelativeOrAbsolute));*/
+            IPhoto.Source = new BitmapImage(new Uri("UP_2022\\" + NeededMaterials[0].Image, UriKind.RelativeOrAbsolute));/*\UP_2022\materials\material_9.jpeg*/
         }
 
         public void Add()
         {
-            List<Material> TemporaryList = new List<Material>();
-            TemporaryList.Add(new Material()
+            try
             {
-                Title = TBOXTitle.Text,
-                Unit = TBOXUnit.Text,
-                MinCount = Convert.ToDouble(TBOXMinCount.Text),
-                Description = TBOXDescription.Text,
-                CountInStock = Convert.ToDouble(TBOXCountInStock.Text),
-                CountInPack = Convert.ToInt32(TBOXCountInPack.Text),
-                MaterialTypeID = CBTypeMat.SelectedIndex + 1,
-                Image = null,
-                Cost = 10
-            });
+                Material TemporaryList = new Material()
+                {
+                    Title = TBOXTitle.Text,
+                    Unit = TBOXUnit.Text,
+                    MinCount = Convert.ToDouble(TBOXMinCount.Text),
+                    Description = TBOXDescription.Text,
+                    CountInStock = Convert.ToDouble(TBOXCountInStock.Text),
+                    CountInPack = Convert.ToInt32(TBOXCountInPack.Text),
+                    MaterialTypeID = CBTypeMat.SelectedIndex + 1,
+                    Image = null,
+                    Cost = Convert.ToDecimal(TBOXCostPerUnit.Text) * Convert.ToDecimal(TBOXCountInStock.Text)
+                };
+                FolderClasses.BD.Data.Material.Add(TemporaryList);
+                FolderClasses.BD.Data.SaveChanges();
+                MessageBox.Show("Данные сохранены в БД", "Сообщение", MessageBoxButton.OK);
+            }
+            catch (OptimisticConcurrencyException)
+            {
+                MessageBox.Show("Данные не сохранены в БД", "Ошибка", MessageBoxButton.OK);
+            }
+            
         }
+
+
 
         private void BAddOrUp_Click(object sender, RoutedEventArgs e)
         {
             Add();
+        }
+
+        private void BChangePhoto_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            if (fileDialog.ShowDialog() == true)
+            {
+                _PhotoPath = fileDialog.FileName;
+                int index = _PhotoPath.IndexOf("materials");
+                _PhotoPath = _PhotoPath.Substring(index);
+            }
+            else
+            {
+                MessageBox.Show("Не возможно открыть диалоговое окно", "Ошибка", MessageBoxButton.OK);
+            }
+
         }
     }
 }
