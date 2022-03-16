@@ -68,6 +68,7 @@
             <StackPanel Orientation="Horizontal" Margin="10 0 10 0">
                 <Button x:Name="BAdd"  Click="BAdd_Click">Добавить материал</Button>
                 <Button x:Name="BchangeMin" Margin="10 0 0 0" Visibility="Collapsed" Click="BchangeMin_Click">Изменение минимального колличества на...</Button>
+                <Button x:Name="BExport"  Click="BExport_Click">Экспорт отчётов</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

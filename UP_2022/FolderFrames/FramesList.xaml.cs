@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Word = Microsoft.Office.Interop.Word;
 
 
 namespace UP_2022.FolderFrames
@@ -179,6 +179,12 @@ namespace UP_2022.FolderFrames
         {
             FolderWindows.UpdateAddWindow upada = new FolderWindows.UpdateAddWindow();
             upada.Show();
+        }
+
+        private void BExport_Click(object sender, RoutedEventArgs e)
+        {
+            FolderWindows.ImportMenuWindow importMenu = new FolderWindows.ImportMenuWindow();
+            importMenu.Show();
         }
     }
 }

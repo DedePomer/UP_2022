@@ -19,7 +19,7 @@
 
             <StackPanel>
                 <GroupBox Header="Название">
-                    <TextBox x:Name="TBOXTitle"/>
+                    <TextBox x:Name="TBOXTitle" />
                 </GroupBox>
 
                 <GroupBox Header="Тип Материала">
