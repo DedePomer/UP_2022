@@ -60,9 +60,15 @@ namespace UP_2022.FolderWindows
             TBOXCountInPack.Text = NeededMaterials[0].CountInPack + "";
             CBTypeMat.SelectedIndex = NeededMaterials[0].MaterialTypeID-1;
             TBOXCostPerUnit.Text = Convert.ToDouble(NeededMaterials[0].Cost)/ Convert.ToDouble(NeededMaterials[0].CountInStock)+ "";
-            /*IPhoto.Source = new BitmapImage(new Uri("UP_2022\\" + NeededMaterials[0].Image, UriKind.RelativeOrAbsolute));*//*\UP_2022\materials\material_9.jpeg*/
-
-
+            if (NeededMaterials[0].Image == null)
+            {
+                IPhoto.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\materials\\picture.png" + NeededMaterials[0].Image, UriKind.RelativeOrAbsolute));                
+            }
+            else
+            {
+                IPhoto.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\.." + NeededMaterials[0].Image, UriKind.RelativeOrAbsolute));
+            }
+            _PhotoPath = IPhoto.Source.ToString();
         }
 
 
@@ -70,12 +76,15 @@ namespace UP_2022.FolderWindows
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(TBOXTitle.Text) || string.IsNullOrWhiteSpace(TBOXCountInStock.Text) || string.IsNullOrWhiteSpace(TBOXUnit.Text) || string.IsNullOrWhiteSpace(TBOXMinCount.Text) || string.IsNullOrWhiteSpace(TBOXCountInPack.Text) || string.IsNullOrWhiteSpace(TBOXCostPerUnit.Text))
+                {
+                    return false;
+                }
                 if (ind < 0)
                 {
                     if (Convert.ToDecimal(TBOXCostPerUnit.Text) >= 0 || Convert.ToDouble(TBOXMinCount.Text) >= 0)
                     {
                         return false;
-
                     }
                     Material TemporaryList = new Material()
                     {
@@ -86,26 +95,22 @@ namespace UP_2022.FolderWindows
                         CountInStock = Convert.ToDouble(TBOXCountInStock.Text),
                         CountInPack = Convert.ToInt32(TBOXCountInPack.Text),
                         MaterialTypeID = CBTypeMat.SelectedIndex + 1,
-                        Image = null,
+                        Image = _PhotoPath,
                         Cost = Convert.ToDecimal(TBOXCostPerUnit.Text) * Convert.ToDecimal(TBOXCountInStock.Text)
                     };
                     FolderClasses.BD.Data.Material.Add(TemporaryList);
                 }
-
                 else
                 {
-                    materials[ind].Title = TBOXTitle.Text;
-                    materials[ind].Unit = TBOXUnit.Text;
-                    materials[ind].MinCount = Convert.ToDouble(TBOXMinCount.Text);
-                    materials[ind].Description = TBOXDescription.Text;
-                    materials[ind].CountInStock = Convert.ToDouble(TBOXCountInStock.Text);
-                    materials[ind].CountInPack = Convert.ToInt32(TBOXCountInPack.Text);
-                    materials[ind].MaterialTypeID = CBTypeMat.SelectedIndex + 1;
-                    if (materials[ind].Image == null)
-                    {
-                        materials[ind].Image = _PhotoPath;
-                    }                   
-                    materials[ind].Cost = Convert.ToDecimal(TBOXCostPerUnit.Text) * Convert.ToDecimal(TBOXCountInStock.Text);
+                    materials[ind-1].Title = TBOXTitle.Text;
+                    materials[ind - 1].Unit = TBOXUnit.Text;
+                    materials[ind - 1].MinCount = Convert.ToDouble(TBOXMinCount.Text);
+                    materials[ind - 1].Description = TBOXDescription.Text;
+                    materials[ind - 1].CountInStock = Convert.ToDouble(TBOXCountInStock.Text);
+                    materials[ind - 1].CountInPack = Convert.ToInt32(TBOXCountInPack.Text);
+                    materials[ind - 1].MaterialTypeID = CBTypeMat.SelectedIndex + 1;
+                    materials[ind - 1].Image = _PhotoPath;                 
+                    materials[ind - 1].Cost = Convert.ToDecimal(TBOXCostPerUnit.Text) * Convert.ToDecimal(TBOXCountInStock.Text);
                 }
                     FolderClasses.BD.Data.SaveChanges();
                     return true;               
@@ -134,17 +139,27 @@ namespace UP_2022.FolderWindows
 
         private void BChangePhoto_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            if (fileDialog.ShowDialog() == true)
+            try
             {
-                _PhotoPath = fileDialog.FileName;
-                int index = _PhotoPath.IndexOf("materials");
-                _PhotoPath = _PhotoPath.Substring(index);
+                OpenFileDialog fileDialog = new OpenFileDialog();
+                if (fileDialog.ShowDialog() == true)
+                {
+                    _PhotoPath = fileDialog.FileName;
+                    int index = _PhotoPath.IndexOf("materials");
+                    _PhotoPath = _PhotoPath.Substring(index);
+                    _PhotoPath = "\\" + _PhotoPath;
+                    IPhoto.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "..\\.."+_PhotoPath, UriKind.RelativeOrAbsolute));
+                }
+                else
+                {
+                    MessageBox.Show("Не возможно открыть диалоговое окно", "Ошибка", MessageBoxButton.OK);
+                }
             }
-            else
+            catch
             {
-                MessageBox.Show("Не возможно открыть диалоговое окно", "Ошибка", MessageBoxButton.OK);
+                MessageBox.Show("Ошибка", "Ошибка", MessageBoxButton.OK);
             }
+            
         }
     }
 }
