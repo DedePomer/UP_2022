@@ -186,5 +186,24 @@ namespace UP_2022.FolderFrames
             FolderWindows.ImportMenuWindow importMenu = new FolderWindows.ImportMenuWindow();
             importMenu.Show();
         }
+
+        private void Pagin1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock TBLOCK = (TextBlock)sender;
+            switch (TBLOCK.Uid)
+            {
+                case "prev":
+                    FolderClasses.PaginatiaClass.CurrentPage--;
+                    break;
+                case "next":
+                    FolderClasses.PaginatiaClass.CurrentPage++;
+                    break;
+                default:
+                    FolderClasses.PaginatiaClass.CurrentPage = Convert.ToInt32(TBLOCK.Text);
+                    break;
+            }
+            LVProductList.ItemsSource = FinalFilter.Skip(FolderClasses.PaginatiaClass.CurrentPage * FolderClasses.PaginatiaClass.CountOrder - FolderClasses.PaginatiaClass.CountOrder).Take(FolderClasses.PaginatiaClass.CountOrder).ToList();
+            FolderClasses.PaginatiaClass.sketch();
+        }
     }
 }

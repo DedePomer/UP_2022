@@ -102,7 +102,7 @@ namespace UP_2022.FolderWindows
                 }
                 else
                 {
-                    materials[ind-1].Title = TBOXTitle.Text;
+                    materials[ind - 1].Title = TBOXTitle.Text;
                     materials[ind - 1].Unit = TBOXUnit.Text;
                     materials[ind - 1].MinCount = Convert.ToDouble(TBOXMinCount.Text);
                     materials[ind - 1].Description = TBOXDescription.Text;

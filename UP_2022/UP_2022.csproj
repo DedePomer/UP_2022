@@ -77,6 +77,7 @@
     <Compile Include="FolderClasses\BD.cs" />
     <Compile Include="FolderClasses\ChangePropertyClass.cs" />
     <Compile Include="FolderClasses\FrameUp.cs" />
+    <Compile Include="FolderClasses\PaginatiaClass.cs" />
     <Compile Include="FolderFrames\FramesList.xaml.cs">
       <DependentUpon>FramesList.xaml</DependentUpon>
     </Compile>
