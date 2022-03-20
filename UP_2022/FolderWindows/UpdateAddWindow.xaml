@@ -55,6 +55,7 @@
         </StackPanel>
         <StackPanel>
             <Button x:Name="BAddOrUp" Click="BAddOrUp_Click"></Button>
+            <Button x:Name="BDell" Visibility="Collapsed" Click="BDell_Click"></Button>
         </StackPanel>
     </Grid>
 </Window>

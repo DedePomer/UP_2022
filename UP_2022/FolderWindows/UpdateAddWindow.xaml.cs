@@ -50,6 +50,8 @@ namespace UP_2022.FolderWindows
             _ind = ind;
             AlwaysWork();
 
+            BDell.Visibility = Visibility.Visible;
+
             List<Material> NeededMaterials;
             NeededMaterials = materials.Where(x => x.ID == _ind).ToList();
             TBOXTitle.Text = NeededMaterials[0].Title +"";
@@ -160,6 +162,24 @@ namespace UP_2022.FolderWindows
                 MessageBox.Show("Ошибка", "Ошибка", MessageBoxButton.OK);
             }
             
+        }
+
+        private void BDell_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult MR = MessageBox.Show("вы точно хотите удалить", "Сообщение", MessageBoxButton.YesNo);
+            Material Del = FolderClasses.BD.Data.Material.FirstOrDefault(x => x.ID == _ind);
+            switch (MR)
+            {
+                case MessageBoxResult.Yes:
+                    FolderClasses.BD.Data.Material.Remove(Del);
+                    FolderClasses.BD.Data.SaveChanges();
+                    MessageBox.Show("Данные удалены", "Сообщение", MessageBoxButton.OK);
+                    FolderClasses.ChangePropertyClass.listview.Items.Refresh();
+                    this.Close();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
