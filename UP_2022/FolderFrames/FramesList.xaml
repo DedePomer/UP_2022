@@ -70,7 +70,7 @@
                 <Button x:Name="BchangeMin" Margin="10 0 0 0" Visibility="Collapsed" Click="BchangeMin_Click">Изменение минимального колличества на...</Button>
                 <Button x:Name="BExport"  Click="BExport_Click">Экспорт отчётов</Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Loaded="StackPanel_Loaded">
                 <TextBlock Name="PginPrev" Uid="prev" Text=" Пред. " MouseDown="Pagin1_MouseDown"/>
                 <TextBlock Name="Pagin1" Uid="1" Text="{Binding  Path = NPage[0], StringFormat={}{0,3}}" Visibility="{Binding Visible[0]}" FontWeight="{Binding Bold[0]}" MouseDown="Pagin1_MouseDown"/>
                 <TextBlock Name="Pagin2" Uid="2" Text="{Binding  Path = NPage[1], StringFormat={}{0,3}}" Visibility="{Binding Visible[1]}" FontWeight="{Binding Bold[1]}" MouseDown="Pagin1_MouseDown"/>

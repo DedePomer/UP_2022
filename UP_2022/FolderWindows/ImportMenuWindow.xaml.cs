@@ -15,9 +15,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace UP_2022.FolderWindows
 {
-    /// <summary>
-    /// Логика взаимодействия для ImportMenuWindow.xaml
-    /// </summary>
+   
     public partial class ImportMenuWindow : Window
     {
         List<Material> AllMAterial = FolderClasses.BD.Data.Material.ToList();

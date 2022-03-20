@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace UP_2022.FolderClasses
 {
-    class PaginatiaClass : INotifyPropertyChanged
+    public class Pag : INotifyPropertyChanged
     {
-        public  event PropertyChangedEventHandler PropertyChanged;  //событие, для изменения значения одного из свойств, описанных ниже
-         int countitems = 10; //количество объектов для отображения
-        public  int[] NPage { get; set; } = new int[countitems];// массив с номерами отображаемых страниц    
-        public  string[] Visible { get; set; } = new string[countitems];//массив свойст, отвечающий за видимость номера страницы, Visible - видимый, Hidden - скрытый
-        public  string[] Bold { get; set; } = new string[countitems];//массив свойств, отвечающий за выделение номера текущей страницы
-         int countpages;  // переменная, в которой буде храниться количество страниц
-        public  int CountPages//свойство в котором хранится общее кол-во страц, при изменении данного свойства будет определяться, скрыт будет номер той или итой страницы или нет (в зависимости об общего кол-ва записей в списке) 
+        public event PropertyChangedEventHandler PropertyChanged;  //событие, для изменения значения одного из свойств, описанных ниже
+        static int countitems = 5; //количество объектов для отображения
+        public int[] NPage { get; set; } = new int[countitems];// массив с номерами отображаемых страниц    
+        public string[] Visible { get; set; } = new string[countitems];//массив свойст, отвечающий за видимость номера страницы, Visible - видимый, Hidden - скрытый
+        public string[] Bold { get; set; } = new string[countitems];//массив свойств, отвечающий за выделение номера текущей страницы
+        int countpages;  // переменная, в которой буде храниться количество страниц
+        public int CountPages//свойство в котором хранится общее кол-во страц, при изменении данного свойства будет определяться, скрыт будет номер той или итой страницы или нет (в зависимости об общего кол-ва записей в списке) 
         {
             get => countpages;
             set
@@ -35,8 +35,8 @@ namespace UP_2022.FolderClasses
             }
         }
 
-         public int countorder;//количество записей на странице
-        public  int CountOrder  //свойство, в котором хранится количество записей на странице, при изменении данного свойства будет изменяться общее количесво страниц для отображения
+        public int countorder;//количество записей на странице
+        public int CountOrder  //свойство, в котором хранится количество записей на странице, при изменении данного свойства будет изменяться общее количесво страниц для отображения
         {
             get => countorder;
             set
@@ -53,8 +53,8 @@ namespace UP_2022.FolderClasses
             }
         }
 
-         public int countlist; // количество записей в списке
-        public  int Countlist //свойство, в котором хранится общее количество записей в списке, при изменении данного свойства будет изменяться общее количесво страниц для отображения
+        public int countlist; // количество записей в списке
+        public int Countlist //свойство, в котором хранится общее количество записей в списке, при изменении данного свойства будет изменяться общее количесво страниц для отображения
         {
             get => countlist;
             set
@@ -70,8 +70,8 @@ namespace UP_2022.FolderClasses
                 }
             }
         }
-         int currentpage;//текущая страница
-        public  int CurrentPage  // свойство, в котором будет хранится текущая страница, при изменении которого будет меняться вся отрисовка меню с номерами страниц
+        int currentpage;//текущая страница
+        public int CurrentPage  // свойство, в котором будет хранится текущая страница, при изменении которого будет меняться вся отрисовка меню с номерами страниц
         {
             get => currentpage;
             set
@@ -90,7 +90,7 @@ namespace UP_2022.FolderClasses
             }
         }
 
-        public  void sketch() //отрисовка
+        public void sketch() //отрисовка
         {
             for (int i = 0; i < countitems; i++)
             {
@@ -112,7 +112,7 @@ namespace UP_2022.FolderClasses
             PropertyChanged(this, new PropertyChangedEventArgs("Bold"));
         }
 
-        public PaginatiaClass() // контруктор
+        public Pag() // контруктор для отрисовки начальной пагинации
         {
             for (int i = 0; i < countitems; i++)
             {
@@ -129,8 +129,8 @@ namespace UP_2022.FolderClasses
                 NPage[i] = i + 1;
             }
             currentpage = 1;  // по умолчанию 1-ая страница будет текущей
-            countorder = 10;  // по умолчанию все записи будут отображаться на одной странице
-            countlist = 5;  // по умолчанию в общем списке будет только одна запись
+            countorder = 1;  // по умолчанию все записи будут отображаться на одной странице
+            countlist = 1;  // по умолчанию в общем списке будет только одна запись
         }
     }
 }

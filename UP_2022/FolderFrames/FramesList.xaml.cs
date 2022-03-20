@@ -21,7 +21,8 @@ namespace UP_2022.FolderFrames
     {
         List<Material> StartFilter = FolderClasses.BD.Data.Material.ToList();
         List<Material> FinalFilter ;
-        int _UpAndDown = 0;
+        FolderClasses.Pag pag = new FolderClasses.Pag();
+        int _UpAndDown = 0, f =0;
 
         public FramesList()
         {
@@ -32,6 +33,11 @@ namespace UP_2022.FolderFrames
             CBSort.SelectedIndex = 0;
             TBLOCKConst.Text = StartFilter.Count + " из ";
             FolderClasses.ChangePropertyClass.listview = LVProductList;
+            DataContext = pag;
+            pag.CountOrder = 10;
+            pag.Countlist = FinalFilter.Count;
+            pag.CurrentPage = 1;
+            LVProductList.ItemsSource = FinalFilter.Skip(pag.CurrentPage * pag.CountOrder - pag.CountOrder).Take(pag.CountOrder).ToList();
         }
 
         private void CBFilt_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -88,7 +94,19 @@ namespace UP_2022.FolderFrames
             {
                 MessageBox.Show("Элементов 0", "Сообщение", MessageBoxButton.OK);
             }
-            LVProductList.ItemsSource = FinalFilter;
+            if (f == 0)
+            {
+                LVProductList.ItemsSource = FinalFilter;
+                f++;
+            }
+            else
+            {
+                pag.CurrentPage = 1;
+                pag.CountOrder = 10;
+                pag.Countlist = FinalFilter.Count;
+                LVProductList.ItemsSource = FinalFilter.Skip(pag.CurrentPage * pag.CountOrder - pag.CountOrder).Take(pag.CountOrder).ToList();
+                pag.sketch();
+            }
         }
 
         public void sort()
@@ -126,6 +144,11 @@ namespace UP_2022.FolderFrames
                 _UpAndDown = 0;
                 LVProductList.Items.Refresh();
             }
+            pag.CurrentPage = 1;
+            pag.CountOrder = 10;
+            pag.Countlist = FinalFilter.Count;
+            LVProductList.ItemsSource = FinalFilter.Skip(pag.CurrentPage * pag.CountOrder - pag.CountOrder).Take(pag.CountOrder).ToList();
+            pag.sketch();
         }
 
         private void BDown_Click(object sender, RoutedEventArgs e)
@@ -135,7 +158,12 @@ namespace UP_2022.FolderFrames
                 sortRevers();
                 _UpAndDown = 1;
                 LVProductList.Items.Refresh();
-            }    
+            }
+            pag.CurrentPage = 1;
+            pag.CountOrder = 10;
+            pag.Countlist = FinalFilter.Count;
+            LVProductList.ItemsSource = FinalFilter.Skip(pag.CurrentPage * pag.CountOrder - pag.CountOrder).Take(pag.CountOrder).ToList();
+            pag.sketch();
         }
 
         private void TBOXSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -193,17 +221,22 @@ namespace UP_2022.FolderFrames
             switch (TBLOCK.Uid)
             {
                 case "prev":
-                    FolderClasses.PaginatiaClass.CurrentPage--;
+                    pag.CurrentPage--;
                     break;
                 case "next":
-                    FolderClasses.PaginatiaClass.CurrentPage++;
+                    pag.CurrentPage++;
                     break;
                 default:
-                    FolderClasses.PaginatiaClass.CurrentPage = Convert.ToInt32(TBLOCK.Text);
+                    pag.CurrentPage = Convert.ToInt32(TBLOCK.Text);
                     break;
             }
-            LVProductList.ItemsSource = FinalFilter.Skip(FolderClasses.PaginatiaClass.CurrentPage * FolderClasses.PaginatiaClass.CountOrder - FolderClasses.PaginatiaClass.CountOrder).Take(FolderClasses.PaginatiaClass.CountOrder).ToList();
-            FolderClasses.PaginatiaClass.sketch();
+            LVProductList.ItemsSource = FinalFilter.Skip(pag.CurrentPage * pag.CountOrder - pag.CountOrder).Take(pag.CountOrder).ToList();
+            pag.sketch();
+        }
+
+        private void StackPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            pag.sketch();
         }
     }
 }
